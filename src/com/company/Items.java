@@ -3,7 +3,7 @@ package com.company;
 public class Items {
     private String name;
     private int count;
-    private  double cost;
+    private double cost;
 
     public Items(String name, int count, double cost) {
         this.name = name;
@@ -11,8 +11,13 @@ public class Items {
         this.cost = cost;
     }
 
-     public int ItemsCount() {
-        this.count--;
+    int itemCount() {
+        if (this.count > 0) {
+            this.count--;
+        } else {
+            System.out.println(this.name + " count is 0 !!! ");
+
+        }
         return count;
     }
 

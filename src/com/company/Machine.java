@@ -1,64 +1,65 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class Machine extends ProductsInCell {
-    private static HashMap<String, List> products;
+
     private double money = 0.0;
-    private String comand;
+    private String command = "";
+    private boolean selection = true;
+
+    public Machine() {
+        super();
+    }
+
+    public void convert(String comand) throws VendingExceptions{
+        String[] comandString = command.split(":");
+        String row = comandString[0].toUpperCase();
+        int column = Integer.parseInt(comandString[1]);
+        VendingExceptions.testItem(row, column);
+        this.selection=false;
+        System.out.println("Take it" + getProducts().get(row).get(column - 1).getName());
+        getProducts().get(row).get(column - 1).itemCount();
+        this.money-=getProducts().get(row).get(column - 1).getCost();
+        System.out.println("Take your cash back :"+ this.money);
+
+    }
+
+    String selectComand() {
+        System.out.println("Select your choise.");
+        Scanner scanner = new Scanner(System.in);
+        this.command = scanner.nextLine();
+        System.out.println("Getting comand");
+        return this.command;
+    }
+
+    double acceptMoney(double money) {
+        System.out.println("Input money.");
+        Scanner scanner = new Scanner(System.in);
+        double inputCoin = scanner.nextDouble();
+        this.money += inputCoin;
+        System.out.println("you have    " + this.money + " money ");
+        return this.money;
+    }
+
+
 
     public double getMoney() {
         return money;
     }
 
-    public void Converter(String comand) {
-        String[] comandString = comand.split(":");
-        String row = comandString[0];
-        int column = Integer.parseInt(comandString[1]);
-
-        if (Machine.getProducts().containsKey(row)) {
-            System.out.println(Machine.getProducts().get(row).get(column - 1));
-            System.out.println(Machine.getProducts().get(row) + "111111");
-            //Machine.getProducts().get(row).get(column-1).
-        }
-        //else(Exception
+    public String getComand() {
+        return command;
     }
 
-    public String Comand() {
-        System.out.println("Select your choise.");
-        Scanner scanner = new Scanner(System.in);
-        this.comand = scanner.nextLine();
-        System.out.println("Getting comand");
-        return this.comand;
+    public void setComand(String command) {
+        this.command = command;
+    }
+    public boolean getSelection() {
+        return selection;
     }
 
-    public double AcceptMoney(double money) {
-        System.out.println("Input money.");
-        Scanner scanner = new Scanner(System.in);
-        double inputCoin = scanner.nextDouble();
-        this.money += inputCoin;
-        System.out.println("you have" + this.money + " ");
-        return this.money;
-    }
-
-    public static HashMap<String, List> getProducts() {
-        return products;
-    }
-
-    public static void setProducts(HashMap<String, List> products) {
-        Machine.products = products;
+    public void setSelection(boolean selection) {
+        this.selection = selection;
     }
 }
-
-
-
-
-
-
-
-    /*FlyingBirds flyingBirds= new FlyingBirds();
-    ArrayList<Flyible>flyingAnimals=new ArrayList <>() ;
-        flyingAnimals.add(flyingBirds);*/

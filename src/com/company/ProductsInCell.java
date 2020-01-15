@@ -6,14 +6,17 @@ import java.util.List;
 
 public class ProductsInCell {
 
-    //public static HashMap<String , HashMap> products;
-    private List<Items> drink = new ArrayList<>();
-    private List<Items> chips = new ArrayList<>();
-    private List<Items> candy = new ArrayList<>();
+    private static List<Items> drink = new ArrayList<>();
+    private static List<Items> chips = new ArrayList<>();
+    private static List<Items> candy = new ArrayList<>();
+    private static HashMap<String, List<Items>> products = new HashMap<>();
 
-     HashMap<String, List> products = new HashMap<>();
+    public ProductsInCell() {
 
-    private HashMap<String, List> ItemsToProduct() {
+        products.put("A", drink);
+        products.put("B", chips);
+        products.put("C", candy);
+
         Items cola = new Items("Cola", 10, 2.0);
         Items pepsi = new Items("Pepsi", 10, 2.0);
         Items sprite = new Items("Sprite", 10, 1.8);
@@ -34,12 +37,6 @@ public class ProductsInCell {
         candy.add(snikers);
         candy.add(twix);
         candy.add(kitkat);
-
-
-        products.put("A", drink);
-        products.put("B", chips);
-        products.put("C", candy);
-        return products;
     }
 
     public List<Items> getDrink() {
@@ -62,7 +59,15 @@ public class ProductsInCell {
         return candy;
     }
 
-    public void setCandy(List<Items> candy) {
+    public void setCandy() {
         this.candy = candy;
+    }
+
+    public static HashMap<String, List<Items>> getProducts() {
+        return products;
+    }
+
+    public void setProducts(HashMap<String, List<Items>> products) {
+        ProductsInCell.products = products;
     }
 }
