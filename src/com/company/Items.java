@@ -16,7 +16,6 @@ public class Items {
             this.count--;
         } else {
             System.out.println(this.name + " count is 0 !!! ");
-
         }
         return count;
     }

@@ -20,6 +20,7 @@ public class ProductsInCell {
         Items cola = new Items("Cola", 10, 2.0);
         Items pepsi = new Items("Pepsi", 10, 2.0);
         Items sprite = new Items("Sprite", 10, 1.8);
+
         drink.add(cola);
         drink.add(pepsi);
         drink.add(sprite);
