@@ -12,7 +12,14 @@ public class Machine extends ProductsInCell {
         super();
     }
 
-    public void convert(String comand) throws VendingExceptions{
+    void start(){
+        acceptMoney(getMoney());
+        while (getSelection()) {
+            convert(inputComand());
+        }
+    }
+
+    void convert(String comand) throws VendingExceptions{
         String[] comandString = command.split(":");
         String row = comandString[0].toUpperCase();
         int column = Integer.parseInt(comandString[1]);
@@ -24,7 +31,7 @@ public class Machine extends ProductsInCell {
 
     }
 
-    String selectComand() {
+    String inputComand() {
         System.out.println("Select your choise.");
         Scanner scanner = new Scanner(System.in);
         this.command = scanner.nextLine();
@@ -42,15 +49,19 @@ public class Machine extends ProductsInCell {
     }
 
     boolean testItem(String row, int column) throws VendingExceptions {
-        if(Machine.getProducts().get(row).contains(column-1)){
+        if(Machine.getProducts().containsKey(row) && Machine.getProducts().get(row).contains(column-1)){
             this.selection=false;
             System.out.println("Wait, please...");
         } else{
-            throw new IndexOutOfBoundsException();
+            convert(inputComand());
+            throw new NullPointerException();
         }
     return selection;
     }
 
+    void showCountityOfProduct(){
+
+    }
     public double getMoney() {
         return money;
     }
