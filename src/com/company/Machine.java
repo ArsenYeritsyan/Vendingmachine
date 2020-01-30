@@ -12,22 +12,22 @@ public class Machine extends ProductsInCell {
         super();
     }
 
-    void start(){
+    void start() {
         acceptMoney(getMoney());
         while (getSelection()) {
             convert(inputComand());
         }
     }
 
-    void convert(String comand) throws VendingExceptions{
+    void convert(String comand) throws VendingExceptions {
         String[] comandString = command.split(":");
         String row = comandString[0].toUpperCase();
         int column = Integer.parseInt(comandString[1]);
-        this.selection=testItem(row, column);
+        this.selection = testItem(row, column);
         System.out.println("Take it" + getProducts().get(row).get(column - 1).getName());
         getProducts().get(row).get(column - 1).removeProduct();
-        this.money-=getProducts().get(row).get(column - 1).getCost();
-        System.out.println("Take your cash back :"+ this.money);
+        this.money -= getProducts().get(row).get(column - 1).getCost();
+        System.out.println("Take your cash back :" + this.money);
 
     }
 
@@ -49,19 +49,21 @@ public class Machine extends ProductsInCell {
     }
 
     boolean testItem(String row, int column) throws VendingExceptions {
-        if(Machine.getProducts().containsKey(row) && Machine.getProducts().get(row).contains(column-1)){
-            this.selection=false;
+        if (Machine.getProducts().containsKey(row) && Machine.getProducts().get(row).contains(column - 1)) {
+            this.selection = false;
             System.out.println("Wait, please...");
-        } else{
+        } else {
+            System.out.println("Try Again");
             convert(inputComand());
             throw new NullPointerException();
         }
-    return selection;
+        return selection;
     }
 
-    void showCountityOfProduct(){
+    void showCountityOfProduct() {
 
     }
+
     public double getMoney() {
         return money;
     }
@@ -73,6 +75,7 @@ public class Machine extends ProductsInCell {
     public void setComand(String command) {
         this.command = command;
     }
+
     public boolean getSelection() {
         return selection;
     }
