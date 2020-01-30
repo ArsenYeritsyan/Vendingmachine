@@ -6,7 +6,7 @@ public class Main {
 
         Machine vending = new Machine();
         vending.start();
-        vending.showCountityOfProduct();
+        vending.showCountityOfProducts();
 
     }
 }

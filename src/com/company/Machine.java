@@ -23,7 +23,7 @@ public class Machine extends ProductsInCell {
         String[] comandString = command.split(":");
         String row = comandString[0].toUpperCase();
         int column = Integer.parseInt(comandString[1]);
-        this.selection = testItem(row, column);
+        testItem(row, column);
         System.out.println("Take it" + getProducts().get(row).get(column - 1).getName());
         getProducts().get(row).get(column - 1).removeProduct();
         this.money -= getProducts().get(row).get(column - 1).getCost();
@@ -60,9 +60,18 @@ public class Machine extends ProductsInCell {
         return selection;
     }
 
-    void showCountityOfProduct() {
-
+    void showCountityOfProducts() {
+        for (int i = 0; i <= getDrink().size(); i++) {
+            System.out.println(getDrink().get(i).toString());
+        }
+        for (int i = 0; i <= getCandy().size(); i++) {
+            System.out.println(getCandy().get(i).toString());
+        }
+        for (int j = 0; j <= getChips().size(); j++) {
+            System.out.println(getChips().get(j).toString());
+        }
     }
+
 
     public double getMoney() {
         return money;

@@ -26,6 +26,11 @@ public class Items {
         return itemList.size();
     }
 
+    @Override
+    public String toString() {
+        return "Product : "+name+" - countity: "+itemList.size();
+    }
+
     public String getName() {
         return name;
     }
