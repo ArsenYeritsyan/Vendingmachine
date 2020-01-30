@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,24 +18,23 @@ public class ProductsInCell {
         products.put("B", chips);
         products.put("C", candy);
 
-        Items cola = new Items("Cola", 10, 2.0);
-        Items pepsi = new Items("Pepsi", 10, 2.0);
-        Items sprite = new Items("Sprite", 10, 1.8);
-
+        Items cola =new Items("Cola", 2.0);
+        Items pepsi = new Items("Pepsi", 2.0);
+        Items sprite = new Items("Sprite",  1.8);
         drink.add(cola);
         drink.add(pepsi);
         drink.add(sprite);
 
-        Items coys = new Items("Coys", 10, 2.0);
-        Items pringles = new Items("Peringles", 10, 2.0);
-        Items doritos = new Items("Doritos", 10, 1.8);
+        Items coys = new Items("Coys",  2.0);
+        Items pringles = new Items("Peringles",  2.0);
+        Items doritos = new Items("Doritos",  1.8);
         chips.add(coys);
         chips.add(pringles);
         chips.add(doritos);
 
-        Items snikers = new Items("Snikers", 10, 1.5);
-        Items twix = new Items("Twix", 10, 1.4);
-        Items kitkat = new Items("Kit-Kat", 10, 1.8);
+        Items snikers = new Items("Snikers",  1.5);
+        Items twix = new Items("Twix",  1.4);
+        Items kitkat = new Items("Kit-Kat",  1.8);
         candy.add(snikers);
         candy.add(twix);
         candy.add(kitkat);

@@ -1,23 +1,29 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Items {
     private String name;
-    private int count;
     private double cost;
+    private List<Character> itemList;
 
-    public Items(String name, int count, double cost) {
+    public Items(String name, double cost) {
         this.name = name;
-        this.count = count;
         this.cost = cost;
+        itemList = new ArrayList<Character>(10);
     }
 
-    int itemCount() {
-        if (this.count > 0) {
-            this.count--;
-        } else {
-            System.out.println(this.name + " count is 0 !!! ");
-        }
-        return count;
+    void addProduct() {
+        itemList.add(' ');
+    }
+
+    void removeProduct() {
+        itemList.remove(0);
+    }
+
+    int getProductCountity() {
+        return itemList.size();
     }
 
     public String getName() {
@@ -28,19 +34,19 @@ public class Items {
         this.name = name;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public double getCost() {
         return cost;
     }
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public List<Character> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Character> itemList) {
+        this.itemList = itemList;
     }
 }

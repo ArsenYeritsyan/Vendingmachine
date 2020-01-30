@@ -18,7 +18,7 @@ public class Machine extends ProductsInCell {
         int column = Integer.parseInt(comandString[1]);
         this.selection=testItem(row, column);
         System.out.println("Take it" + getProducts().get(row).get(column - 1).getName());
-        getProducts().get(row).get(column - 1).itemCount();
+        getProducts().get(row).get(column - 1).removeProduct();
         this.money-=getProducts().get(row).get(column - 1).getCost();
         System.out.println("Take your cash back :"+ this.money);
 
@@ -42,15 +42,10 @@ public class Machine extends ProductsInCell {
     }
 
     boolean testItem(String row, int column) throws VendingExceptions {
-        try {
-            Items items = Machine.getProducts().get(row).get(column - 1);
+        if(Machine.getProducts().get(row).contains(column-1)){
             this.selection=false;
             System.out.println("Wait, please...");
-        } catch (NullPointerException ex) {
-            System.out.println("NullPointerException caught...");
-            throw new NullPointerException();
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            System.out.print("ArrayIndexOutOfBoundsException caught");
+        } else{
             throw new IndexOutOfBoundsException();
         }
     return selection;
