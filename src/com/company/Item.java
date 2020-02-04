@@ -37,7 +37,7 @@ public abstract class Item {
 
     @Override
     public String toString() {
-        return "Product : " + this.toString() + " - Cost: " + this.getCost();
+        return "Product : " + this.getClass() + " - Cost: " + this.getCost();
     }
 
     //endregion

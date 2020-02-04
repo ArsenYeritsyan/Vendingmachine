@@ -8,24 +8,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Machine {
-    private List<ItemsQueue> drink;
-    private List<ItemsQueue> chips;
-    private List<ItemsQueue> candy;
-    private static HashMap<String, List<ItemsQueue>> products = new HashMap<>();
+    private List<ItemsQueue> drink = new ArrayList<>();
+    private List<ItemsQueue> chips = new ArrayList<>();
+    private List<ItemsQueue> candy = new ArrayList<>();
+    private  HashMap<String, List<ItemsQueue>> products = new HashMap<>();
 
     private double money = 0.0;
     private String command = "";
     private boolean selection = true;
+    Item itemTemp;
 
-    public Machine() {
+    public Machine(){
         initializeProducts();
-        showCountityOfProducts();
+        showProducts();
     }
 
+
     private void initializeProducts() {
-        List<ItemsQueue> drink = new ArrayList<>();
-        List<ItemsQueue> chips = new ArrayList<>();
-        List<ItemsQueue> candy = new ArrayList<>();
+
         products.put("A", drink);
         products.put("B", chips);
         products.put("C", candy);
@@ -47,19 +47,19 @@ public class Machine {
         String row = command.getRow();
         int column = command.getCollumn();
         try {
-            getProducts().containsKey(row);
+            boolean b = getProducts().containsKey(row);
             getProducts().get(row).get(column - 1).removeFirst();
-            Item itemTemp = getProducts().get(row).get(column - 1).getItem();
-            getProducts().get(row).get(column - 1).getProductCountity();
+            itemTemp = getProducts().get(row).get(column - 1).getItem();
+           // getProducts().get(row).get(column - 1).getProductCountity();
             System.out.println(itemTemp.getClass() + " " + itemTemp.getCost());
 
             this.money -= itemTemp.getCost();
             System.out.println("Take your cash back :" + this.money);
             return itemTemp;
 
-        } catch (Exception e) {
-            throw new NullPointerException();
-        }
+        } catch (NullPointerException e) {
+            System.out.println("hehe");
+        }return itemTemp;
     }
 
     String scanInputCommand() {
@@ -79,15 +79,15 @@ public class Machine {
         return this.money;
     }
 
-    void showCountityOfProducts() {
+    void showProducts() {
         for (int i = 0; i < getDrink().size(); i++) {
-            System.out.println(getDrink().get(i).getProductCountity());
+            System.out.println(getDrink().get(i).getItem().getClass()+" " + getDrink().get(i).getProductCountity());
         }
         for (int i = 0; i < getCandy().size(); i++) {
-            System.out.println(getCandy().get(i).getProductCountity());
+            System.out.println(getCandy().get(i).getItem().getClass()+" " + getCandy().get(i).getProductCountity());
         }
         for (int j = 0; j < getChips().size(); j++) {
-            System.out.println(getChips().get(j).getProductCountity());
+            System.out.println(getChips().get(j).getItem().getClass()+" " + getChips().get(j).getProductCountity());
         }
     }
 
@@ -116,12 +116,12 @@ public class Machine {
         this.candy = candy;
     }
 
-    public static HashMap<String, List<ItemsQueue>> getProducts() {
+    public HashMap<String, List<ItemsQueue>> getProducts() {
         return products;
     }
 
-    public static void setProducts(HashMap<String, List<ItemsQueue>> products) {
-        Machine.products = products;
+    public void setProducts(HashMap<String, List<ItemsQueue>> products) {
+        this.products = products;
     }
 
     public double getMoney() {
