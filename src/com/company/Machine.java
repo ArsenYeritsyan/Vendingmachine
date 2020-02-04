@@ -43,7 +43,7 @@ public class Machine {
         candy.add(new ItemsQueue(new KitKat("Kit-Kat", 1.7)));
     }
 
-    public Item getProduct(Command command) throws RuntimeException {
+    public Item getProduct(Command command) {
         String row = command.getRow();
         int column = command.getCollumn();
         try {
@@ -52,12 +52,13 @@ public class Machine {
             Item itemTemp = getProducts().get(row).get(column - 1).getItem();
             getProducts().get(row).get(column - 1).getProductCountity();
             System.out.println(itemTemp.getClass() + " " + itemTemp.getCost());
+
             this.money -= itemTemp.getCost();
             System.out.println("Take your cash back :" + this.money);
             return itemTemp;
 
         } catch (Exception e) {
-            throw new VendingExceptions("Try Again..");
+            throw new NullPointerException();
         }
     }
 

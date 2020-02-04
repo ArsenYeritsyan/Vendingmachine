@@ -7,10 +7,10 @@ public class Main {
         Machine vending = new Machine();
         vending.acceptMoney(vending.getMoney());
         try {
-            vending.getProduct(Converter.convertInputToCommand(vending.scanInputCommand()));
+            vending.getProduct(Converter.convertInputToCommand("A:3"));
+            vending.showCountityOfProducts();
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
         }
-        vending.showCountityOfProducts();
     }
 }
