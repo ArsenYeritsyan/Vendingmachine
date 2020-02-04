@@ -1,37 +1,67 @@
 package com.company;
 
+import com.company.Items.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
-public class Machine extends ProductsInCell {
+public class Machine {
+    private List<ItemsQueue> drink;
+    private List<ItemsQueue> chips;
+    private List<ItemsQueue> candy;
+    private static HashMap<String, List<ItemsQueue>> products = new HashMap<>();
 
     private double money = 0.0;
     private String command = "";
     private boolean selection = true;
 
     public Machine() {
-        super();
+        initializeProducts();
+        showCountityOfProducts();
     }
 
-    void start() {
-        acceptMoney(getMoney());
-        while (getSelection()) {
-            convert(inputComand());
+    private void initializeProducts() {
+        List<ItemsQueue> drink = new ArrayList<>();
+        List<ItemsQueue> chips = new ArrayList<>();
+        List<ItemsQueue> candy = new ArrayList<>();
+        products.put("A", drink);
+        products.put("B", chips);
+        products.put("C", candy);
+
+        drink.add(new ItemsQueue(new Cola("Cola", 1.9)));
+        drink.add(new ItemsQueue(new Pepsi("Pepsi", 2.0)));
+        drink.add(new ItemsQueue(new Sprite("Sprite", 1.8)));
+
+        chips.add(new ItemsQueue(new Coys("Coys", 2.2)));
+        chips.add(new ItemsQueue(new Pringles("Pringles", 2.0)));
+        chips.add(new ItemsQueue(new Doritos("Doritos", 1.8)));
+
+        candy.add(new ItemsQueue(new Snikers("Snikers", 1.5)));
+        candy.add(new ItemsQueue(new Twix("Twix", 1.4)));
+        candy.add(new ItemsQueue(new KitKat("Kit-Kat", 1.7)));
+    }
+
+    public Item getProduct(Command command) throws RuntimeException {
+        String row = command.getRow();
+        int column = command.getCollumn();
+        try {
+            getProducts().containsKey(row);
+            getProducts().get(row).get(column - 1).removeFirst();
+            Item itemTemp = getProducts().get(row).get(column - 1).getItem();
+            getProducts().get(row).get(column - 1).getProductCountity();
+            System.out.println(itemTemp.getClass() + " " + itemTemp.getCost());
+            this.money -= itemTemp.getCost();
+            System.out.println("Take your cash back :" + this.money);
+            return itemTemp;
+
+        } catch (Exception e) {
+            throw new VendingExceptions("Try Again..");
         }
     }
 
-    void convert(String comand) throws VendingExceptions {
-        String[] comandString = command.split(":");
-        String row = comandString[0].toUpperCase();
-        int column = Integer.parseInt(comandString[1]);
-        testItem(row, column);
-        System.out.println("Take it" + getProducts().get(row).get(column - 1).getName());
-        getProducts().get(row).get(column - 1).removeProduct();
-        this.money -= getProducts().get(row).get(column - 1).getCost();
-        System.out.println("Take your cash back :" + this.money);
-
-    }
-
-    String inputComand() {
+    String scanInputCommand() {
         System.out.println("Select your choise.");
         Scanner scanner = new Scanner(System.in);
         this.command = scanner.nextLine();
@@ -44,48 +74,72 @@ public class Machine extends ProductsInCell {
         Scanner scanner = new Scanner(System.in);
         double inputCoin = scanner.nextDouble();
         this.money += inputCoin;
-        System.out.println("you have    " + this.money + " money ");
+        System.out.println("you have " + this.money + " money ");
         return this.money;
     }
 
-    boolean testItem(String row, int column) throws VendingExceptions {
-        if (Machine.getProducts().containsKey(row) && Machine.getProducts().get(row).contains(column - 1)) {
-            this.selection = false;
-            System.out.println("Wait, please...");
-        } else {
-            System.out.println("Try Again");
-            convert(inputComand());
-            throw new NullPointerException();
-        }
-        return selection;
-    }
-
     void showCountityOfProducts() {
-        for (int i = 0; i <= getDrink().size(); i++) {
-            System.out.println(getDrink().get(i).toString());
+        for (int i = 0; i < getDrink().size(); i++) {
+            System.out.println(getDrink().get(i).getProductCountity());
         }
-        for (int i = 0; i <= getCandy().size(); i++) {
-            System.out.println(getCandy().get(i).toString());
+        for (int i = 0; i < getCandy().size(); i++) {
+            System.out.println(getCandy().get(i).getProductCountity());
         }
-        for (int j = 0; j <= getChips().size(); j++) {
-            System.out.println(getChips().get(j).toString());
+        for (int j = 0; j < getChips().size(); j++) {
+            System.out.println(getChips().get(j).getProductCountity());
         }
     }
 
+
+    public List<ItemsQueue> getDrink() {
+        return drink;
+    }
+
+    public void setDrink(List<ItemsQueue> drink) {
+        this.drink = drink;
+    }
+
+    public List<ItemsQueue> getChips() {
+        return chips;
+    }
+
+    public void setChips(List<ItemsQueue> chips) {
+        this.chips = chips;
+    }
+
+    public List<ItemsQueue> getCandy() {
+        return candy;
+    }
+
+    public void setCandy(List<ItemsQueue> candy) {
+        this.candy = candy;
+    }
+
+    public static HashMap<String, List<ItemsQueue>> getProducts() {
+        return products;
+    }
+
+    public static void setProducts(HashMap<String, List<ItemsQueue>> products) {
+        Machine.products = products;
+    }
 
     public double getMoney() {
         return money;
     }
 
-    public String getComand() {
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public String getCommand() {
         return command;
     }
 
-    public void setComand(String command) {
+    public void setCommand(String command) {
         this.command = command;
     }
 
-    public boolean getSelection() {
+    public boolean isSelection() {
         return selection;
     }
 
